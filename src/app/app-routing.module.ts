@@ -6,6 +6,8 @@ import { StatsPageComponent } from './components/stats-page/stats-page.component
 
 const routes: Routes = [
   {
+    path: "", redirectTo: "search",pathMatch:'full'
+  },{
     path: "repos", component: ReposPageComponent,
   }, {
     path: "stats", component: StatsPageComponent
