@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Repository } from './models/repository.model';
 import { GithubRestClientService } from './services/github-rest-client.service';
 
@@ -9,14 +10,8 @@ import { GithubRestClientService } from './services/github-rest-client.service';
 })
 export class AppComponent {
   title = 'nexocraft';
-  arr: Repository[] = [];
 
-  constructor(private githubRestClient: GithubRestClientService) {
+  constructor() {  }
 
-    this.githubRestClient.getUserRepositories("mh3061997").subscribe((res) => {
-      this.arr = res;
-      console.log(this.arr);
-      
-    })
-  }
+  
 }

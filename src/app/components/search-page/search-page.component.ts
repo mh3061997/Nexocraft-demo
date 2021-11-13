@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { GithubRestClientService } from 'src/app/services/github-rest-client.service';
 
 @Component({
   selector: 'app-search-page',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private githubRestClient: GithubRestClientService, private router: Router) {  }
 
   ngOnInit(): void {
   }
-
+  navigateReposPage(username: string) {
+    this.githubRestClient.getUserRepositories(username).subscribe(repos => {
+      this.router.navigate(['repos'], { state: { repos: repos } });
+    });
+  }
 }
