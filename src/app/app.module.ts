@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { ReposPageComponent } from './components/repos-page/repos-page.component';
 import { StatsPageComponent } from './components/stats-page/stats-page.component';
 import { SearchPageComponent } from './components/search-page/search-page.component';
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SearchPageComponent } from './components/search-page/search-page.compon
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    HighchartsChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
