@@ -1,4 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { Options, SeriesOptionsType } from "highcharts";
+import * as Highcharts from 'highcharts';
+import { Activity } from 'src/app/models/activity.model';
+import { GithubRestClientService } from 'src/app/services/github-rest-client.service';
+import { MapperService } from 'src/app/services/mapper.service';
+
+import HC_exporting from "highcharts/modules/exporting";
+import HC_exporting_DATA from "highcharts/modules/export-data";
+HC_exporting(Highcharts);
+HC_exporting_DATA(Highcharts);
 
 @Component({
   selector: 'app-stats-page',
@@ -7,7 +17,48 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StatsPageComponent implements OnInit {
 
-  constructor() { }
+  Highcharts: typeof Highcharts = Highcharts;
+  data: SeriesOptionsType[] = [];
+  participationChartOptions: Highcharts.Options | undefined;
+  contributorsChartOptions: Highcharts.Options | undefined;
+
+  constructor(private githubClient: GithubRestClientService, private mapper: MapperService) {
+    this.githubClient.getRepoParticipation("spring", "spring").subscribe(response => {
+      this.data = this.mapper.formatParticipationArray(response);
+      this.initParticipationChartOptions();
+    })
+  }
+ 
+
+  initParticipationChartOptions(){
+    this.participationChartOptions = {
+      series: this.data,
+
+
+      title: {
+        text: 'Participation Line Graph'
+      },
+    
+      yAxis: {
+        title: {
+            text: 'Number of Commits'
+        }
+    },
+
+    xAxis: {
+      title: {
+        text: 'Last 52 Weeks'
+    }
+    },
+
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+    };
+  }
 
   ngOnInit(): void {
   }
