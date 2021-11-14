@@ -1,8 +1,18 @@
 export class Repository {
 
-     constructor(
-           private name: string,
-           private stargazers_count: number,
-           private  language: string) { }
+      //TODO:change fileds to private and use getters in repo template
+      constructor(
+            public name: string,
+            public stargazers_count: number,
+            public language: string) { }
 
+      public getName(): string {
+            return this.name;
+      }
+      public getStarCount(): number {
+            return this.stargazers_count;
+      }
+      public getLanguage(): string {
+            return this.language;
+      }
 };
