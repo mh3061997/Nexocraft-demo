@@ -1,7 +1,6 @@
-export class Contributor {
+export interface Contributor {
 
-    constructor(
-        private total:number,
-        private name:string
-    ){};
+    total: number;
+    author: { login: string };
+
 };

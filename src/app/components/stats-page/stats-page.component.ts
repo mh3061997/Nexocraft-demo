@@ -7,6 +7,7 @@ import { MapperService } from 'src/app/services/mapper.service';
 
 import HC_exporting from "highcharts/modules/exporting";
 import HC_exporting_DATA from "highcharts/modules/export-data";
+import { Contributor } from 'src/app/models/contributor.model';
 HC_exporting(Highcharts);
 HC_exporting_DATA(Highcharts);
 
@@ -19,11 +20,10 @@ export class StatsPageComponent implements OnInit {
 
   Highcharts: typeof Highcharts = Highcharts;
   participationData: SeriesOptionsType[] = [];
-  commitActivityData:Activity[] = [];
-  commitActivityCategories:Date[]=[];
+  commitActivityData: Activity[] = [];
+  contributorsData: Contributor[] | undefined;
   participationChartOptions: Highcharts.Options | undefined;
   commitActivityChartOptions: Highcharts.Options | undefined;
-
   constructor(private githubClient: GithubRestClientService, private mapper: MapperService) {
 
     this.githubClient.getRepoParticipation("spring", "spring").subscribe(response => {
@@ -33,9 +33,15 @@ export class StatsPageComponent implements OnInit {
 
     this.githubClient.getRepoCommitActivity("spring", "spring").subscribe(response => {
       this.commitActivityData = response;
-      // this.commitActivityCategories=this.mapper.formatCommitActivityArrayCategories(response);
       this.initCommitActivityChartOptions();
+    });
+
+    this.githubClient.getRepoTopFiveContributors("spring","spring").subscribe(response=>{
+      console.log(response);
+      
+      this.contributorsData=response;
     })
+
 
   }
 
@@ -72,10 +78,10 @@ export class StatsPageComponent implements OnInit {
   private initCommitActivityChartOptions() {
     this.commitActivityChartOptions = {
       series: [{
-        name:"commits",
-        type:'bar',
-        data:this.commitActivityData.map(activity => {
-          return [  activity.week*1000,  activity.total ];
+        name: "commits",
+        type: 'bar',
+        data: this.commitActivityData.map(activity => {
+          return [activity.week * 1000, activity.total];
         })
       }],
 
@@ -95,9 +101,9 @@ export class StatsPageComponent implements OnInit {
           text: 'Last 52 Weeks'
         }
         ,
-        type:"datetime",
-       
-       
+        type: "datetime",
+
+
       },
 
       legend: {
