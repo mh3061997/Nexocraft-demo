@@ -9,13 +9,13 @@ import { GithubRestClientService } from 'src/app/services/github-rest-client.ser
 })
 export class SearchPageComponent implements OnInit {
 
-  constructor(private githubRestClient: GithubRestClientService, private router: Router) {  }
+  constructor(private githubRestClient: GithubRestClientService, private router: Router) { }
 
   ngOnInit(): void {
   }
   navigateReposPage(username: string) {
-    this.githubRestClient.getUserRepositories(username).subscribe(repos => {
-      this.router.navigate(['repos'], { state: { repos: repos } });
-    });
+
+    this.router.navigate(['repos'], { queryParams: { username: username } });
+
   }
 }
