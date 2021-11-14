@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Activity } from '../models/activity.model';
 import { Contributor } from '../models/contributor.model';
 import { Participation } from '../models/participation.model';
 import { Repository } from '../models/repository.model';
@@ -35,9 +36,16 @@ export class GithubRestClientService {
         ;
       }));
   }
-
-  getRepoParticipation(username: string, repo: string): Observable<Participation[]> {
+ //get commit count for owner and others for last 52 weeks
+  getRepoParticipation(username: string, repo: string): Observable<Participation> {
     let url = this.pathService.getParticipationPath(username, repo);
-    return this.httpClient.get<Participation[]>(url);
+    return this.httpClient.get<Participation>(url);
+  }
+
+  //Returns the last year of commit activity grouped by week. 
+  //The days array is a group of commits per day, starting on Sunday
+  getRepoCommitActivity(username:string,repo:string):Observable<Activity[]>{
+   let url = this.pathService.getCommitActivityPath(username, repo);
+    return this.httpClient.get<Activity[]>(url);
   }
 }
