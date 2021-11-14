@@ -1,1 +1,8 @@
-<p>repos-page works!</p>
+<div class="container">
+    <div class="row my-2" *ngFor="let repo of repos">
+        <span>{{repo.name}}</span>
+        <span>{{repo.stargazers_count}}</span>
+        <span>{{repo.language}}</span>
+
+    </div>
+</div>
