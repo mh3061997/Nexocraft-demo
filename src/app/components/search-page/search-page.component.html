@@ -6,7 +6,7 @@
             </div>
             <form (ngSubmit)="navigateReposPage(username.value)">
                 <div class="my-3 col-md-12">
-                    <input type="text" class="form-control text-center" ngModel #username="ngModel" id="username" placeholder="Github Username">
+                    <input type="text" class="form-control text-center" ngModel #username="ngModel" name="username" placeholder="Github Username">
                 </div>
                 <button class="btn btn-success px-5">Go</button>
             </form>
