@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { SeriesOptionsType } from 'highcharts';
+import { SeriesBarOptions, SeriesOptionsType } from 'highcharts';
+import { Activity } from '../models/activity.model';
 import { Participation } from '../models/participation.model';
 
 @Injectable({
@@ -33,4 +34,18 @@ export class MapperService {
     return seriesOptionsArr;
   }
 
+  // formatCommitActivityArrayData(activityArr: Activity[]){
+
+   
+  //   return activityArr.map(activity=>{
+  //     return activity.total;
+  //   });
+  // }
+  // formatCommitActivityArrayCategories(activityArr: Activity[]){
+
+   
+  //   return activityArr.map(activity=>{
+  //     return activity.week;
+  //   });
+  // }
 }
