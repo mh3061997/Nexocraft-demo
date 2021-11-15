@@ -1,8 +1,20 @@
-<div class="container">
-    <div class="row my-2" *ngFor="let repo of repos">
-        <span>{{repo.name}}</span>
-        <span>{{repo.stargazers_count}}</span>
-        <span>{{repo.language}}</span>
+<div class="container p-5">
+    <div class="col-md-10 col-12 text-center">
 
+        <div class="rounded row bg-light my-2 p-4 " *ngFor="let repo of repos" (click)="goToStats(repo.name)" style="cursor: pointer;">
+            <div class="row">
+                <div class="col-md-6">
+                    <span>{{repo.name}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span class="mx-2 ">&#9733;</span>
+                    <span>{{repo.stargazers_count}}</span>
+                </div>
+                <div class="col-md-3">
+                    <span>{{repo.language}}</span>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-success px-5" routerLink="..">Back</button>
     </div>
 </div>

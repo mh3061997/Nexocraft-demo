@@ -30,16 +30,12 @@ export class GithubRestClientService {
     let url = this.pathService.getContributorsPath(username, repo);
     return this.httpClient.get<Contributor[]>(url).pipe(
       map((responseArr) => {
-        console.log(responseArr);
         //compare function is needed in this way here 
         //bec. default js sort treats numbers alphabetically
         return responseArr.sort((a, b) => { return b.total - a.total });
-        
       }),
-      map(responseArr=>{
-        console.log(responseArr);
-
-        return responseArr.slice(0,5);
+      map(responseArr => {
+        return responseArr.slice(0, 5);
       }));
   }
   //get commit count for owner and others for last 52 weeks
