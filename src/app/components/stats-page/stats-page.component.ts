@@ -8,6 +8,9 @@ import { MapperService } from 'src/app/services/mapper.service';
 import HC_exporting from "highcharts/modules/exporting";
 import HC_exporting_DATA from "highcharts/modules/export-data";
 import { Contributor } from 'src/app/models/contributor.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+
 HC_exporting(Highcharts);
 HC_exporting_DATA(Highcharts);
 
@@ -20,26 +23,44 @@ export class StatsPageComponent implements OnInit {
 
   Highcharts: typeof Highcharts = Highcharts;
   participationData: SeriesOptionsType[] = [];
-  commitActivityData: Activity[] = [];
+  commitActivityData: number[][] = [];
   contributorsData: Contributor[] | undefined;
   participationChartOptions: Highcharts.Options | undefined;
   commitActivityChartOptions: Highcharts.Options | undefined;
-  constructor(private githubClient: GithubRestClientService, private mapper: MapperService) {
+  username: string = "";
+  repo: string = "";
 
-    this.githubClient.getRepoParticipation("spring", "spring").subscribe(response => {
+  constructor(
+    private router: Router,
+    private currentRoute: ActivatedRoute,
+    private location: Location,
+    private githubClient: GithubRestClientService, private mapper: MapperService) {
+
+    //If repo or username missing redirect to search page
+    this.currentRoute.queryParams.subscribe(params => {
+      this.username = params.username,
+        this.repo = params.repo
+      if (!this.username || !this.repo) {
+        this.router.navigate(['search']);
+      }
+    });
+
+    this.githubClient.getRepoParticipation(this.username, this.repo).subscribe(response => {
+      //Map array to highchart's format
       this.participationData = this.mapper.formatParticipationArray(response);
+      //initialize chart options
       this.initParticipationChartOptions();
     });
 
-    this.githubClient.getRepoCommitActivity("spring", "spring").subscribe(response => {
-      this.commitActivityData = response;
+    this.githubClient.getRepoCommitActivity(this.username, this.repo).subscribe(response => {
+      //Data already in correct format no need to map
+      this.commitActivityData = this.mapper.formatCommitActivityArray(response);
+      //initialize chart options
       this.initCommitActivityChartOptions();
     });
 
-    this.githubClient.getRepoTopFiveContributors("spring","spring").subscribe(response=>{
-      console.log(response);
-      
-      this.contributorsData=response;
+    this.githubClient.getRepoTopFiveContributors(this.username, this.repo).subscribe(response => {
+      this.contributorsData = response;
     })
 
 
@@ -63,7 +84,7 @@ export class StatsPageComponent implements OnInit {
 
       xAxis: {
         title: {
-          text: 'Last 52 Weeks'
+          text: 'Week'
         }
       },
 
@@ -80,9 +101,7 @@ export class StatsPageComponent implements OnInit {
       series: [{
         name: "commits",
         type: 'bar',
-        data: this.commitActivityData.map(activity => {
-          return [activity.week * 1000, activity.total];
-        })
+        data: this.commitActivityData
       }],
 
       chart: {
@@ -98,14 +117,10 @@ export class StatsPageComponent implements OnInit {
       },
       xAxis: {
         title: {
-          text: 'Last 52 Weeks'
-        }
-        ,
+          text: 'Week'
+        },
         type: "datetime",
-
-
       },
-
       legend: {
         layout: 'vertical',
         align: 'right',
@@ -114,7 +129,9 @@ export class StatsPageComponent implements OnInit {
 
     };
   }
-
+  goBack() {
+    this.location.back();
+  }
   ngOnInit(): void {
   }
 
