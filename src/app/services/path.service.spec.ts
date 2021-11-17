@@ -10,7 +10,16 @@ describe('PathService', () => {
     service = TestBed.inject(PathService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should interpolate commit activity path', () => {
+    expect(service.getCommitActivityPath("spring", "spring")).toEqual("https://api.github.com/repos/spring/spring/stats/commit_activity");
+  });
+  it('should interpolate participation path', () => {
+    expect(service.getParticipationPath("spring", "spring")).toEqual("https://api.github.com/repos/spring/spring/stats/participation");
+  });
+  it('should interpolate user repos path', () => {
+    expect(service.getUserRepositoriesPath("spring")).toEqual("https://api.github.com/users/spring/repos");
+  });
+  it('should interpolate contributors path', () => {
+    expect(service.getContributorsPath("spring", "spring")).toEqual("https://api.github.com/repos/spring/spring/stats/contributors");
   });
 });
