@@ -1,14 +1,29 @@
 # Nexocraft
+This is a demo project for nexocraft's frontend team
+## Get Started
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
+### Clone the Repo
+```shell
+git clone https://github.com/mh3061997/nexocraft
+
+```
+## Install NodeJs
+Download and install NodeJs from [Downloads Page](https://nodejs.org/en/download/)
+## Verify Installation
+Run these commands to check versions
+```shell
+node -v
+npm -v
+```
+## Install Angular Cli
+Run `npm install -g @angular/cli`
+
+## Install NPM Packages
+Run `npm install `
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
 
@@ -18,13 +33,9 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
+## Code Coverage Report
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Run  `ng test --code-coverage --no-watch`
+Open coverage report from `./coverage/nexopcraft`
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-
-## Install HightCharts
-npm install highcharts-angular --save
