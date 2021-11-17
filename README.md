@@ -4,8 +4,8 @@ This is a demo project for nexocraft's frontend team
 
 ### Clone the Repo
 ```shell
-git clone https://github.com/mh3061997/nexocraft
-
+git clone https://https://github.com/mh3061997/Nexocraft-demo
+cd Nexocraft-demo
 ```
 ## Install NodeJs
 Download and install NodeJs from [Downloads Page](https://nodejs.org/en/download/)
