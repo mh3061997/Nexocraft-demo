@@ -38,8 +38,8 @@ export class StatsPageComponent implements OnInit {
 
     //If repo or username missing redirect to search page
     this.currentRoute.queryParams.subscribe(params => {
-      this.username = params.username,
-        this.repo = params.repo
+      this.username = params.username;
+        this.repo = params.repo;
       if (!this.username || !this.repo) {
         this.router.navigate(['search']);
       }
