@@ -27,7 +27,6 @@ export class ReposPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.repos = history.state.repos;
   }
 
   goToStats(repo: string) {
